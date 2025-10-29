@@ -1,19 +1,19 @@
 /* CSS переменные для светлой темы */
 :root {
-    --primary-color: #667eea;
-    --primary-dark: #5a6fd8;
-    --secondary-color: #764ba2;
+    --primary-color: #2ecc71;
+    --primary-dark: #27ae60;
+    --secondary-color: #2ecc71;
     --accent-color: #3498db;
     --text-color: #2c3e50;
     --text-light: #7f8c8d;
     --bg-color: #ffffff;
     --bg-light: #f8f9fa;
-    --bg-dark: #2c3e50;
+    --bg-dark: #27ae60;
     --border-color: #e9ecef;
     --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.15);
-    --radius: 8px;
-    --radius-lg: 12px;
+    --radius: 25px;
+    --radius-lg: 30px;
     --space-xs: 0.5rem;
     --space-sm: 1rem;
     --space-md: 1.5rem;
@@ -23,15 +23,15 @@
 
 /* Тёмная тема */
 [data-theme="dark"] {
-    --primary-color: #7e95f0;
-    --primary-dark: #6b83e6;
-    --secondary-color: #8a5fb3;
+    --primary-color: #2ecc71;
+    --primary-dark: #27ae60;
+    --secondary-color: #2ecc71;
     --accent-color: #4fa8e4;
     --text-color: #ecf0f1;
     --text-light: #bdc3c7;
     --bg-color: #1a1a1a;
     --bg-light: #2d2d2d;
-    --bg-dark: #34495e;
+    --bg-dark: #27ae60;
     --border-color: #404040;
     --shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
     --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.4);
@@ -48,7 +48,7 @@ body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     line-height: 1.6;
     color: var(--text-color);
-    background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+    background: #2ecc71;
     min-height: 100vh;
     transition: background 0.3s ease, color 0.3s ease;
 }
@@ -66,7 +66,7 @@ body {
 
 /* Header */
 .header {
-    background: linear-gradient(135deg, var(--bg-dark) 0%, #34495e 100%);
+    background: linear-gradient(135deg, var(--bg-dark) 0%, #27ae60 100%);
     color: white;
     padding: var(--space-lg);
     transition: all 0.3s ease;
@@ -112,7 +112,7 @@ body {
 .theme-toggle {
     background: rgba(255, 255, 255, 0.2);
     border: none;
-    border-radius: 20px;
+    border-radius: 25px;
     padding: 8px 15px;
     color: white;
     cursor: pointer;
@@ -186,6 +186,7 @@ body {
     margin-bottom: var(--space-lg);
     color: var(--text-color);
     font-weight: 400;
+    text-align: center;
 }
 
 /* Hero Section */
@@ -222,7 +223,7 @@ body {
     display: inline-block;
     padding: var(--space-md) var(--space-lg);
     border: none;
-    border-radius: var(--radius);
+    border-radius: 25px;
     text-decoration: none;
     font-weight: 600;
     cursor: pointer;
@@ -231,7 +232,7 @@ body {
 }
 
 .btn-primary {
-    background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
     color: white;
 }
 
@@ -244,6 +245,7 @@ body {
     background: var(--bg-light);
     color: var(--text-color);
     border: 2px solid var(--border-color);
+    border-radius: 25px;
 }
 
 .btn-secondary:hover {
@@ -312,15 +314,79 @@ body {
     color: var(--text-color);
 }
 
-/* Projects */
-.projects-grid,
+/* Projects Preview */
+.projects-preview {
+    margin-bottom: var(--space-xl);
+}
+
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: var(--space-lg);
+}
+
+.project-card {
+    background: var(--bg-color);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    transition: all 0.3s ease;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.project-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-lg);
+}
+
+.project-image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.project-card-content {
+    padding: var(--space-md);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    flex-grow: 1;
+}
+
+.project-title {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: var(--text-color);
+    margin-bottom: var(--space-sm);
+}
+
+.project-desc {
+    color: var(--text-light);
+    line-height: 1.5;
+}
+
+/* Projects Page Styles */
+.projects-intro {
+    text-align: center;
+    margin-bottom: var(--space-xl);
+    color: var(--text-light);
+    font-size: 1.1rem;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
 .projects-full-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: var(--space-lg);
 }
 
-.project-card,
 .project-full-card {
     background: var(--bg-color);
     border-radius: var(--radius-lg);
@@ -330,33 +396,26 @@ body {
     cursor: pointer;
 }
 
-.project-card:hover,
 .project-full-card:hover {
     transform: translateY(-5px);
     box-shadow: var(--shadow-lg);
 }
 
-.project-image,
 .project-full-image {
     width: 100%;
-    height: 200px;
-    object-fit: cover;
-}
-
-.project-full-image {
     height: 250px;
-}
-
-.project-title,
-.project-full-title {
-    padding: var(--space-md);
-    font-size: 1.3rem;
-    font-weight: 600;
-    color: var(--text-color);
+    object-fit: cover;
 }
 
 .project-full-content {
     padding: var(--space-md);
+}
+
+.project-full-title {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: var(--text-color);
+    margin-bottom: var(--space-sm);
 }
 
 .project-full-tech {
@@ -367,37 +426,7 @@ body {
 .project-full-desc {
     margin-bottom: var(--space-md);
     color: var(--text-color);
-}
-
-.project-links {
-    display: flex;
-    gap: var(--space-sm);
-}
-
-.project-link {
-    padding: var(--space-xs) var(--space-md);
-    background: var(--bg-light);
-    color: var(--text-color);
-    text-decoration: none;
-    border-radius: var(--radius);
-    font-size: 0.9rem;
-    transition: all 0.3s ease;
-}
-
-.project-link:hover {
-    background: var(--primary-color);
-    color: white;
-}
-
-/* Стили для страницы проектов */
-.projects-intro {
-    text-align: center;
-    margin-bottom: var(--space-xl);
-    color: var(--text-light);
-    font-size: 1.1rem;
-    max-width: 600px;
-    margin-left: auto;
-    margin-right: auto;
+    line-height: 1.5;
 }
 
 .project-image-container {
@@ -411,7 +440,7 @@ body {
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(102, 126, 234, 0.9);
+    background: rgba(46, 204, 113, 0.9);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -434,15 +463,40 @@ body {
     flex-wrap: wrap;
     gap: var(--space-xs);
     margin: var(--space-md) 0;
+    justify-content: center;
 }
 
 .feature-tag {
     background: var(--bg-light);
     color: var(--text-color);
-    padding: 4px 8px;
-    border-radius: 12px;
+    padding: 6px 12px;
+    border-radius: 15px;
     font-size: 0.8rem;
     font-weight: 500;
+}
+
+.project-links {
+    display: flex;
+    gap: var(--space-sm);
+    justify-content: center;
+}
+
+.project-link {
+    padding: 8px 16px;
+    background: var(--primary-color);
+    color: white;
+    text-decoration: none;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.project-link:hover {
+    background: var(--primary-dark);
+    transform: translateY(-2px);
 }
 
 /* Filters */
@@ -458,7 +512,7 @@ body {
     padding: var(--space-sm) var(--space-md);
     background: var(--bg-light);
     border: 2px solid var(--border-color);
-    border-radius: var(--radius);
+    border-radius: 20px;
     cursor: pointer;
     transition: all 0.3s ease;
     color: var(--text-color);
@@ -602,7 +656,7 @@ body {
 
 .progress-fill {
     height: 100%;
-    background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
     border-radius: 3px;
     transition: width 0.3s ease;
 }
@@ -637,7 +691,7 @@ body {
     width: 100%;
     padding: var(--space-md);
     border: 2px solid var(--border-color);
-    border-radius: var(--radius);
+    border-radius: 20px;
     font-size: 1rem;
     transition: border-color 0.3s ease;
     background: var(--bg-color);
@@ -749,7 +803,7 @@ body {
 }
 
 .modal-header {
-    background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
     color: white;
     padding: var(--space-lg);
     border-radius: var(--radius-lg) var(--radius-lg) 0 0;
@@ -768,6 +822,12 @@ body {
     background: none;
     border: none;
     color: white;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .modal-body {
@@ -859,5 +919,9 @@ body {
     
     .logo {
         font-size: 2rem;
+    }
+    
+    .btn {
+        padding: var(--space-sm) var(--space-md);
     }
 }

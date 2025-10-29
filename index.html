@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Главная - Портфолио</title>
+    <link rel="stylesheet" href="styles/styles.css">
+</head>
+<body>
+    <div class="page-container">
+        <header class="header">
+            <div class="theme-switcher">
+                <button class="theme-toggle" id="themeToggle">
+                    <span class="theme-icon" id="themeIcon">🌙</span>
+                    <span class="theme-text" id="themeText">Тёмная</span>
+                </button>
+            </div>
+            <div class="header-content">
+                <img src="images/logo.png" alt="Логотип" class="header-logo">
+                <div>
+                    <h1 class="logo">Мой сайт</h1>
+                    <p class="student-name">Лукьянов Антон Павлович</p>
+                </div>
+            </div>
+        </header>
+
+        <nav class="nav">
+            <ul class="nav-list">
+                <li class="nav-item"><a class="nav-link active" href="index.html">Главная</a></li>
+                <li class="nav-item"><a class="nav-link" href="pages/projects.html">Проекты</a></li>
+                <li class="nav-item"><a class="nav-link" href="pages/diary.html">Дневник</a></li>
+                <li class="nav-item"><a class="nav-link" href="pages/contacts.html">Контакты</a></li>
+            </ul>
+        </nav>
+
+        <main class="main-content">
+            <section class="hero">
+                <div class="hero-text">
+                    <h2>Привет! Я студент группы ЭФБО-02-24</h2>
+                    <p>Люблю кодить, увлекаюсь веб-разработкой и создаю современные интерфейсы</p>
+                    <a href="assets/resume.pdf" class="btn btn-primary" download>Скачать резюме</a>
+                </div>
+                <div class="hero-image">
+                    <img src="images/photo.png" alt="Фото студента" class="profile-photo">
+                </div>
+            </section>
+
+            <section class="skills-section">
+                <h2 class="section-title">Мои навыки</h2>
+                
+                <!-- ТОЛЬКО визуализация в кругах -->
+                <div class="skills-visual">
+                    <div class="skill-visual-item">
+                        <div class="skill-circle" data-percent="90">
+                            <span class="skill-circle-percent">90%</span>
+                        </div>
+                        <div class="skill-visual-name">HTML/CSS</div>
+                        <p>Верстка, адаптивный дизайн, CSS анимации</p>
+                    </div>
+                    <div class="skill-visual-item">
+                        <div class="skill-circle" data-percent="80">
+                            <span class="skill-circle-percent">80%</span>
+                        </div>
+                        <div class="skill-visual-name">JavaScript</div>
+                        <p>ES6+, DOM manipulation, AJAX, Fetch API</p>
+                    </div>
+                    <div class="skill-visual-item">
+                        <div class="skill-circle" data-percent="85">
+                            <span class="skill-circle-percent">85%</span>
+                        </div>
+                        <div class="skill-visual-name">Bootstrap</div>
+                        <p>Адаптивная верстка, компоненты, утилиты</p>
+                    </div>
+                    <div class="skill-visual-item">
+                        <div class="skill-circle" data-percent="60">
+                            <span class="skill-circle-percent">60%</span>
+                        </div>
+                        <div class="skill-visual-name">React</div>
+                        <p>Компоненты, хуки, состояние, маршрутизация</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="projects-preview">
+                <h2 class="section-title">Лучшие проекты</h2>
+                <div class="projects-grid">
+                    <div class="project-card">
+                        <img src="images/project1.jpg" alt="Личный сайт" class="project-image">
+                        <h3 class="project-title">Личный сайт</h3>
+                        <p class="project-desc">Сайт-портфолио на HTML и CSS</p>
+                    </div>
+                    <div class="project-card">
+                        <img src="images/project2.jpg" alt="Todo приложение" class="project-image">
+                        <h3 class="project-title">Todo приложение</h3>
+                        <p class="project-desc">Приложение для управления задачами</p>
+                    </div>
+                    <div class="project-card">
+                        <img src="images/project3.jpg" alt="Интернет-магазин" class="project-image">
+                        <h3 class="project-title">Интернет-магазин</h3>
+                        <p class="project-desc">Прототип магазина с корзиной товаров</p>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer class="footer">
+            <p>&copy; 2025 Все права защищены.</p>
+            <p><a href="pages/contacts.html" class="footer-link">По вопросам: +7 (977) 166-22-00</a></p>
+        </footer>
+    </div>
+
+    <script src="scripts/script.js"></script>
+</body>
+</html>

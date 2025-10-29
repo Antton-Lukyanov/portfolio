@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Дневник - Портфолио</title>
+    <link rel="stylesheet" href="../styles/styles.css">
+</head>
+<body>
+    <div class="page-container">
+        <header class="header">
+            <div class="theme-switcher">
+                <button class="theme-toggle" id="themeToggle">
+                    <span class="theme-icon" id="themeIcon">🌙</span>
+                    <span class="theme-text" id="themeText">Тёмная</span>
+                </button>
+            </div>
+            <div class="header-content">
+                <img src="../images/logo.png" alt="Логотип" class="header-logo">
+                <div>
+                    <h1 class="logo">Мой сайт</h1>
+                    <p class="student-name">Лукьянов Антон Павлович</p>
+                </div>
+            </div>
+        </header>
+
+        <nav class="nav">
+            <ul class="nav-list">
+                <li class="nav-item"><a class="nav-link" href="../index.html">Главная</a></li>
+                <li class="nav-item"><a class="nav-link" href="projects.html">Проекты</a></li>
+                <li class="nav-item"><a class="nav-link active" href="diary.html">Дневник</a></li>
+                <li class="nav-item"><a class="nav-link" href="contacts.html">Контакты</a></li>
+            </ul>
+        </nav>
+
+        <main class="main-content">
+            <section class="diary-section">
+                <h1 class="page-title">Мой учебный прогресс</h1>
+                
+                <div class="diary-layout">
+                    <div class="diary-entries">
+                        <h2 class="section-title">Последние записи</h2>
+                        <div class="entries-list">
+                            <div class="entry-item completed">
+                                <div class="entry-date">20 окт</div>
+                                <div class="entry-content">
+                                    <h3 class="entry-title">Завершил работу над портфолио</h3>
+                                    <p class="entry-desc">Реализовал адаптивный дизайн, тёмную тему и модальные окна для проектов</p>
+                                </div>
+                                <span class="entry-status">✓</span>
+                            </div>
+                            
+                            <div class="entry-item completed">
+                                <div class="entry-date">15 окт</div>
+                                <div class="entry-content">
+                                    <h3 class="entry-title">Изучил CSS Grid и Flexbox</h3>
+                                    <p class="entry-desc">Освоил современные методы вёрстки и создал несколько макетов</p>
+                                </div>
+                                <span class="entry-status">✓</span>
+                            </div>
+                            
+                            <div class="entry-item completed">
+                                <div class="entry-date">13 сент</div>
+                                <div class="entry-content">
+                                    <h3 class="entry-title">Верстка макета сайта</h3>
+                                    <p class="entry-desc">Завершил верстку адаптивного макета портфолио</p>
+                                </div>
+                                <span class="entry-status">✓</span>
+                            </div>
+                            
+                            <div class="entry-item completed">
+                                <div class="entry-date">28 авг</div>
+                                <div class="entry-content">
+                                    <h3 class="entry-title">JavaScript основы</h3>
+                                    <p class="entry-desc">Изучил основы JavaScript и DOM manipulation</p>
+                                </div>
+                                <span class="entry-status">✓</span>
+                            </div>
+                            
+                            <div class="entry-item in-progress">
+                                <div class="entry-date">25 авг</div>
+                                <div class="entry-content">
+                                    <h3 class="entry-title">Работа с формами</h3>
+                                    <p class="entry-desc">Изучаю валидацию форм и обработку данных на стороне клиента</p>
+                                </div>
+                                <span class="entry-status">⟳</span>
+                            </div>
+                            
+                            <div class="entry-item in-progress">
+                                <div class="entry-date">20 авг</div>
+                                <div class="entry-content">
+                                    <h3 class="entry-title">Адаптивный дизайн</h3>
+                                    <p class="entry-desc">Практикую медиа-запросы и mobile-first подход в веб-разработке</p>
+                                </div>
+                                <span class="entry-status">⟳</span>
+                            </div>
+
+                            <div class="entry-item planned">
+                                <div class="entry-date">27 окт</div>
+                                <div class="entry-content">
+                                    <h3 class="entry-title">Изучение React Hooks</h3>
+                                    <p class="entry-desc">Планирую изучить useState, useEffect и другие хуки React</p>
+                                </div>
+                                <span class="entry-status">⏳</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Отступ добавлен через дополнительный div -->
+                        <div class="button-container">
+                            <button class="btn btn-secondary" id="addEntryBtn">Добавить запись</button>
+                        </div>
+                    </div>
+
+                    <div class="courses-progress">
+                        <h2 class="section-title">Текущие курсы</h2>
+                        <div class="courses-list">
+                            <div class="course-item">
+                                <div class="course-header">
+                                    <span class="course-name">Веб-разработка</span>
+                                    <span class="course-percent">90%</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 90%"></div>
+                                </div>
+                                <p class="course-desc">HTML, CSS, JavaScript, адаптивный дизайн</p>
+                            </div>
+                            
+                            <div class="course-item">
+                                <div class="course-header">
+                                    <span class="course-name">JavaScript</span>
+                                    <span class="course-percent">75%</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 75%"></div>
+                                </div>
+                                <p class="course-desc">ES6+, DOM, события, асинхронное программирование</p>
+                            </div>
+                            
+                            <div class="course-item">
+                                <div class="course-header">
+                                    <span class="course-name">React</span>
+                                    <span class="course-percent">50%</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 50%"></div>
+                                </div>
+                                <p class="course-desc">Компоненты, хуки, состояние, маршрутизация</p>
+                            </div>
+
+                            <div class="course-item">
+                                <div class="course-header">
+                                    <span class="course-name">Bootstrap</span>
+                                    <span class="course-percent">85%</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 85%"></div>
+                                </div>
+                                <p class="course-desc">Компоненты, сетка, утилиты, кастомизация</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer class="footer">
+            <p>&copy; 2025 Все права защищены.</p>
+            <p><a href="contacts.html" class="footer-link">По вопросам: +7 (977) 166-22-00</a></p>
+        </footer>
+    </div>
+
+    <script src="../scripts/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Контакты - Портфолио</title>
+    <link rel="stylesheet" href="../styles/styles.css">
+</head>
+<body>
+    <div class="page-container">
+        <header class="header">
+            <div class="theme-switcher">
+                <button class="theme-toggle" id="themeToggle">
+                    <span class="theme-icon" id="themeIcon">🌙</span>
+                    <span class="theme-text" id="themeText">Тёмная</span>
+                </button>
+            </div>
+            <div class="header-content">
+                <img src="../images/logo.png" alt="Логотип" class="header-logo">
+                <div>
+                    <h1 class="logo">Мой сайт</h1>
+                    <p class="student-name">Лукьянов Антон Павлович</p>
+                </div>
+            </div>
+        </header>
+
+        <nav class="nav">
+            <ul class="nav-list">
+                <li class="nav-item"><a class="nav-link" href="../index.html">Главная</a></li>
+                <li class="nav-item"><a class="nav-link" href="projects.html">Проекты</a></li>
+                <li class="nav-item"><a class="nav-link" href="diary.html">Дневник</a></li>
+                <li class="nav-item"><a class="nav-link active" href="contacts.html">Контакты</a></li>
+            </ul>
+        </nav>
+
+        <main class="main-content">
+            <section class="contacts-section">
+                <h1 class="page-title">Свяжитесь со мной</h1>
+                
+                <div class="contacts-layout">
+                    <div class="contact-form-container">
+                        <h2 class="section-title">Отправить сообщение</h2>
+                        <form class="contact-form" id="contactForm">
+                            <div class="form-group">
+                                <label for="name">Имя *</label>
+                                <input type="text" id="name" name="name" required placeholder="Введите ваше имя">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="email">Email *</label>
+                                <input type="email" id="email" name="email" required placeholder="your.email@example.com">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="message">Сообщение *</label>
+                                <textarea id="message" name="message" rows="6" required placeholder="Опишите ваше предложение или вопрос..."></textarea>
+                            </div>
+                            
+                            <button type="submit" class="btn btn-primary">Отправить сообщение</button>
+                        </form>
+                    </div>
+
+                    <div class="contact-info">
+                        <h2 class="section-title">Мои контакты</h2>
+                        <div class="contact-details">
+                            <div class="contact-item">
+                                <span class="contact-icon">📧</span>
+                                <div class="contact-content">
+                                    <h3>Email</h3>
+                                    <p>bibaloveff@mail.ru</p>
+                                    <small>Основной способ связи</small>
+                                </div>
+                            </div>
+                            
+                            <div class="contact-item">
+                                <span class="contact-icon">💻</span>
+                                <div class="contact-content">
+                                    <h3>GitHub</h3>
+                                    <p>github.com/Antton-Lukyanov</p>
+                                    <small>Мои проекты и исходный код</small>
+                                </div>
+                            </div>
+
+                            <div class="contact-item">
+                                <span class="contact-icon">📱</span>
+                                <div class="contact-content">
+                                    <h3>Телефон</h3>
+                                    <p>+7 (977) 166-22-00</p>
+                                    <small>Доступен для звонков</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer class="footer">
+            <p>&copy; 2025 Все права защищены.</p>
+            <p><a href="contacts.html" class="footer-link">По вопросам: +7 (977) 166-22-00</a></p>
+        </footer>
+    </div>
+
+    <script src="../scripts/script.js"></script>
+</body>
+</html>

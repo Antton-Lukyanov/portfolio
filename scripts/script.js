@@ -3,7 +3,34 @@ document.addEventListener('DOMContentLoaded', function() {
     // Инициализация темы
     initializeTheme();
     
+    // Инициализация круговых прогресс-баров
+    initializeSkillCircles();
+    
     // Фильтры на странице проектов
+    initializeProjectFilters();
+    
+    // Модальные окна для проектов
+    initializeProjectModals();
+    
+    // Обработка формы контактов
+    initializeContactForm();
+    
+    // Добавление записи в дневник
+    initializeDiaryEntry();
+});
+
+// Функция для инициализации круговых прогресс-баров
+function initializeSkillCircles() {
+    const skillCircles = document.querySelectorAll('.skill-circle');
+    
+    skillCircles.forEach(circle => {
+        const percent = circle.getAttribute('data-percent');
+        circle.style.setProperty('--p', percent + '%');
+    });
+}
+
+// Функция для инициализации фильтров проектов
+function initializeProjectFilters() {
     const filterButtons = document.querySelectorAll('.filter-btn');
     const projectCards = document.querySelectorAll('.project-full-card');
     
@@ -27,59 +54,66 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
     }
-    
-    // Модальные окна для проектов
+}
+
+// Функция для инициализации модальных окон проектов
+function initializeProjectModals() {
     const projectCardsClickable = document.querySelectorAll('.project-full-card, .project-card');
     const modal = document.getElementById('projectModal');
+    
+    if (!modal) return;
+    
     const modalTitle = document.getElementById('modalProjectTitle');
     const modalBody = document.getElementById('modalProjectBody');
     const modalClose = document.querySelector('.modal-close');
     
-    if (modal) {
-        // Открытие модального окна
-        projectCardsClickable.forEach(card => {
-            card.addEventListener('click', function() {
-                const title = this.querySelector('.project-full-title, .project-title').textContent;
-                const tech = this.querySelector('.project-full-tech')?.textContent || '';
-                const desc = this.querySelector('.project-full-desc')?.textContent || '';
-                
-                modalTitle.textContent = title;
-                modalBody.innerHTML = `
-                    <div class="modal-development">
-                        <div class="modal-development-icon">🚧</div>
-                        <h3>Страница в разработке</h3>
-                        <p>Детальная информация о проекте скоро появится здесь!</p>
-                        <div style="margin-top: 20px; padding: 15px; background: var(--bg-light); border-radius: 8px;">
-                            <h4>Планируемое содержимое:</h4>
-                            <ul style="text-align: left; margin-top: 10px;">
-                                <li>Полное описание проекта</li>
-                                <li>Скриншоты и демонстрации</li>
-                                <li>Ссылки на живую версию</li>
-                                <li>Исходный код на GitHub</li>
-                                <li>Используемые технологии</li>
-                            </ul>
-                        </div>
-                        ${tech ? `<p><strong>Технологии:</strong> ${tech}</p>` : ''}
-                        ${desc ? `<p><strong>Описание:</strong> ${desc}</p>` : ''}
+    // Открытие модального окна
+    projectCardsClickable.forEach(card => {
+        card.addEventListener('click', function() {
+            const title = this.querySelector('.project-full-title, .project-title')?.textContent || 'Проект';
+            const tech = this.querySelector('.project-full-tech')?.textContent || '';
+            const desc = this.querySelector('.project-full-desc')?.textContent || '';
+            
+            modalTitle.textContent = title;
+            modalBody.innerHTML = `
+                <div class="modal-development">
+                    <div class="modal-development-icon">🚧</div>
+                    <h3>Страница в разработке</h3>
+                    <p>Детальная информация о проекте скоро появится здесь!</p>
+                    <div style="margin-top: 20px; padding: 15px; background: var(--bg-light); border-radius: 8px;">
+                        <h4>Планируемое содержимое:</h4>
+                        <ul style="text-align: left; margin-top: 10px;">
+                            <li>Полное описание проекта</li>
+                            <li>Скриншоты и демонстрации</li>
+                            <li>Ссылки на живую версию</li>
+                            <li>Исходный код на GitHub</li>
+                            <li>Используемые технологии</li>
+                        </ul>
                     </div>
-                `;
-                modal.style.display = 'block';
-            });
+                    ${tech ? `<p><strong>Технологии:</strong> ${tech}</p>` : ''}
+                    ${desc ? `<p><strong>Описание:</strong> ${desc}</p>` : ''}
+                </div>
+            `;
+            modal.style.display = 'block';
         });
-        
-        // Закрытие модального окна
+    });
+    
+    // Закрытие модального окна
+    if (modalClose) {
         modalClose.addEventListener('click', function() {
             modal.style.display = 'none';
         });
-        
-        window.addEventListener('click', function(event) {
-            if (event.target === modal) {
-                modal.style.display = 'none';
-            }
-        });
     }
     
-    // Обработка формы контактов
+    window.addEventListener('click', function(event) {
+        if (event.target === modal) {
+            modal.style.display = 'none';
+        }
+    });
+}
+
+// Функция для инициализации формы контактов
+function initializeContactForm() {
     const contactForm = document.getElementById('contactForm');
     if (contactForm) {
         contactForm.addEventListener('submit', function(e) {
@@ -94,11 +128,15 @@ document.addEventListener('DOMContentLoaded', function() {
                 // В реальном приложении здесь был бы AJAX запрос
                 alert('Спасибо! Ваше сообщение отправлено. Я свяжусь с вами в ближайшее время.');
                 contactForm.reset();
+            } else {
+                alert('Пожалуйста, заполните все обязательные поля.');
             }
         });
     }
-    
-    // Добавление записи в дневник
+}
+
+// Функция для добавления записи в дневник
+function initializeDiaryEntry() {
     const addEntryBtn = document.getElementById('addEntryBtn');
     if (addEntryBtn) {
         addEntryBtn.addEventListener('click', function() {
@@ -111,19 +149,6 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     }
-    
-    // Инициализация круговых прогресс-баров
-    initializeSkillCircles();
-});
-
-// Функция для инициализации круговых прогресс-баров
-function initializeSkillCircles() {
-    const skillCircles = document.querySelectorAll('.skill-circle');
-    
-    skillCircles.forEach(circle => {
-        const percent = circle.getAttribute('data-percent');
-        circle.style.setProperty('--p', percent + '%');
-    });
 }
 
 // Функция для инициализации и переключения темы
@@ -138,12 +163,12 @@ function initializeTheme() {
     
     if (savedTheme === 'dark' || (!savedTheme && systemPrefersDark)) {
         document.documentElement.setAttribute('data-theme', 'dark');
-        themeIcon.textContent = '☀️';
-        themeText.textContent = 'Светлая';
+        if (themeIcon) themeIcon.textContent = '☀️';
+        if (themeText) themeText.textContent = 'Светлая';
     } else {
         document.documentElement.setAttribute('data-theme', 'light');
-        themeIcon.textContent = '🌙';
-        themeText.textContent = 'Тёмная';
+        if (themeIcon) themeIcon.textContent = '🌙';
+        if (themeText) themeText.textContent = 'Тёмная';
     }
     
     // Обработчик переключения темы
@@ -154,13 +179,13 @@ function initializeTheme() {
             if (currentTheme === 'light') {
                 document.documentElement.setAttribute('data-theme', 'dark');
                 localStorage.setItem('theme', 'dark');
-                themeIcon.textContent = '☀️';
-                themeText.textContent = 'Светлая';
+                if (themeIcon) themeIcon.textContent = '☀️';
+                if (themeText) themeText.textContent = 'Светлая';
             } else {
                 document.documentElement.setAttribute('data-theme', 'light');
                 localStorage.setItem('theme', 'light');
-                themeIcon.textContent = '🌙';
-                themeText.textContent = 'Тёмная';
+                if (themeIcon) themeIcon.textContent = '🌙';
+                if (themeText) themeText.textContent = 'Тёмная';
             }
         });
     }

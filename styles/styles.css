@@ -1168,3 +1168,22 @@ legend {
     color: #000000 !important;
     background: rgba(255, 255, 255, 0.3);
 }
+
+.nav {
+    background: #a8c7fa !important; /* Очень светлый синий */
+}
+
+/* Для темной темы */
+[data-theme="dark"] .nav {
+    background: #96b8f2 !important; /* Светлый синий в темной теме */
+}
+
+[data-theme="dark"] .nav-list .nav-link {
+    color: #000000 !important;
+}
+
+[data-theme="dark"] .nav-list .nav-link:hover,
+[data-theme="dark"] .nav-list .nav-link.active {
+    color: #000000 !important;
+    background: rgba(255, 255, 255, 0.9) !important; /* Почти белый фон */
+}

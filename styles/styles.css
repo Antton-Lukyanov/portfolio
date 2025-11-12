@@ -1148,3 +1148,23 @@ legend {
 [data-theme="dark"] .form-group select[aria-invalid="true"] {
     background-color: #2d1b1b;
 }
+
+/* Только номер телефона в футере делаем белым */
+.footer p:last-child .footer-link {
+    color: #ffffff !important;
+}
+
+.footer p:last-child .footer-link:hover {
+    color: #e0e0e0 !important;
+}
+
+/* Только навигационные ссылки делаем черными */
+.nav-list .nav-link {
+    color: #000000 !important;
+}
+
+.nav-list .nav-link:hover,
+.nav-list .nav-link.active {
+    color: #000000 !important;
+    background: rgba(255, 255, 255, 0.3);
+}

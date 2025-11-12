@@ -6,6 +6,9 @@ document.addEventListener('DOMContentLoaded', function() {
     // Инициализация круговых прогресс-баров
     initializeSkillCircles();
     
+    // Инициализация lazy loading
+    initializeLazyLoading();
+    
     // Фильтры на странице проектов
     initializeProjectFilters();
     
@@ -29,6 +32,30 @@ function initializeSkillCircles() {
     });
 }
 
+// Функция для lazy loading изображений
+function initializeLazyLoading() {
+    const lazyImages = document.querySelectorAll('img[loading="lazy"]');
+    
+    if ('IntersectionObserver' in window) {
+        const imageObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const img = entry.target;
+                    img.classList.add('loaded');
+                    observer.unobserve(img);
+                }
+            });
+        });
+
+        lazyImages.forEach(img => imageObserver.observe(img));
+    } else {
+        // Fallback для старых браузеров
+        lazyImages.forEach(img => {
+            img.classList.add('loaded');
+        });
+    }
+}
+
 // Функция для инициализации фильтров проектов
 function initializeProjectFilters() {
     const filterButtons = document.querySelectorAll('.filter-btn');
@@ -47,8 +74,16 @@ function initializeProjectFilters() {
                 projectCards.forEach(card => {
                     if (filter === 'all' || card.getAttribute('data-category') === filter) {
                         card.style.display = 'block';
+                        setTimeout(() => {
+                            card.style.opacity = '1';
+                            card.style.transform = 'translateY(0)';
+                        }, 50);
                     } else {
-                        card.style.display = 'none';
+                        card.style.opacity = '0';
+                        card.style.transform = 'translateY(20px)';
+                        setTimeout(() => {
+                            card.style.display = 'none';
+                        }, 300);
                     }
                 });
             });
@@ -73,6 +108,12 @@ function initializeProjectModals() {
             const title = this.querySelector('.project-full-title, .project-title')?.textContent || 'Проект';
             const tech = this.querySelector('.project-full-tech')?.textContent || '';
             const desc = this.querySelector('.project-full-desc')?.textContent || '';
+            const features = this.querySelectorAll('.feature-tag');
+            
+            let featuresHTML = '';
+            features.forEach(feature => {
+                featuresHTML += `<span class="feature-tag">${feature.textContent}</span>`;
+            });
             
             modalTitle.textContent = title;
             modalBody.innerHTML = `
@@ -92,6 +133,7 @@ function initializeProjectModals() {
                     </div>
                     ${tech ? `<p><strong>Технологии:</strong> ${tech}</p>` : ''}
                     ${desc ? `<p><strong>Описание:</strong> ${desc}</p>` : ''}
+                    ${featuresHTML ? `<div class="project-features" style="margin-top: 15px;">${featuresHTML}</div>` : ''}
                 </div>
             `;
             modal.style.display = 'block';
@@ -188,5 +230,22 @@ function initializeTheme() {
                 if (themeText) themeText.textContent = 'Тёмная';
             }
         });
+    }
+}
+
+// Оптимизация для медленных соединений
+if ('connection' in navigator) {
+    const connection = navigator.connection;
+    if (connection.saveData) {
+        // Отключаем некоторые тяжелые ресурсы при экономии трафика
+        const heavyImages = document.querySelectorAll('img[data-heavy]');
+        heavyImages.forEach(img => {
+            img.src = img.getAttribute('data-light-src');
+        });
+    }
+    
+    if (connection.effectiveType.includes('2g')) {
+        // Упрощаем анимации для медленных соединений
+        document.documentElement.style.setProperty('--transition', 'none');
     }
 }

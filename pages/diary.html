@@ -18,7 +18,16 @@
                 </button>
             </div>
             <div class="header-content">
-                <img src="../images/logo.png" alt="Логотип" class="header-logo">
+                <picture>
+                    <source srcset="../images/logo.webp" type="image/webp">
+                    <source srcset="../images/logo@2x.png 2x, ../images/logo.png 1x">
+                    <img src="../images/logo.png" 
+                         alt="Логотип" 
+                         class="header-logo" 
+                         width="60" 
+                         height="60"
+                         loading="eager">
+                </picture>
                 <div>
                     <h1 class="logo">Мой сайт</h1>
                     <p class="student-name">Лукьянов Антон Павлович</p>
@@ -35,7 +44,7 @@
             </ul>
         </nav>
 
-        <main class="main-content">
+        <main class="main-content" id="main">
             <section class="diary-section">
                 <h1 class="page-title">Мой учебный прогресс</h1>
                 
@@ -43,6 +52,15 @@
                     <div class="diary-entries">
                         <h2 class="section-title">Последние записи</h2>
                         <div class="entries-list">
+                            <div class="entry-item completed">
+                                <div class="entry-date">25 окт</div>
+                                <div class="entry-content">
+                                    <h3 class="entry-title">Реализовал адаптивные изображения</h3>
+                                    <p class="entry-desc">Добавил поддержку WebP, разные размеры для разных экранов, lazy loading и Retina-дисплеев на всех страницах портфолио</p>
+                                </div>
+                                <span class="entry-status">✓</span>
+                            </div>
+                            
                             <div class="entry-item completed">
                                 <div class="entry-date">20 окт</div>
                                 <div class="entry-content">
@@ -107,7 +125,6 @@
                             </div>
                         </div>
                         
-                        <!-- Отступ добавлен через дополнительный div -->
                         <div class="button-container">
                             <button class="btn btn-secondary" id="addEntryBtn">Добавить запись</button>
                         </div>
@@ -166,7 +183,7 @@
         </main>
 
         <footer class="footer">
-            <p>&copy; 2025 Все права защищены.</p>
+            <p>&copy; 2025 Лукьянов Антон Павлович. Все права защищены.</p>
             <p><a href="contacts.html" class="footer-link">По вопросам: +7 (977) 166-22-00</a></p>
         </footer>
     </div>

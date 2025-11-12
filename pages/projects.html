@@ -18,7 +18,16 @@
                 </button>
             </div>
             <div class="header-content">
-                <img src="../images/logo.png" alt="Логотип" class="header-logo">
+                <picture>
+                    <source srcset="../images/logo.webp" type="image/webp">
+                    <source srcset="../images/logo@2x.png 2x, ../images/logo.png 1x">
+                    <img src="../images/logo.png" 
+                         alt="Логотип" 
+                         class="header-logo" 
+                         width="60" 
+                         height="60"
+                         loading="eager">
+                </picture>
                 <div>
                     <h1 class="logo">Мой сайт</h1>
                     <p class="student-name">Лукьянов Антон Павлович</p>
@@ -35,12 +44,12 @@
             </ul>
         </nav>
 
-        <main class="main-content">
+        <main class="main-content" id="main">
             <section class="projects-section">
                 <h1 class="page-title">Мои проекты</h1>
                 
                 <div class="projects-intro">
-                    <p>Здесь собраны мои учебные и личные проекты.</p>
+                    <p>Здесь собраны мои учебные и личные проекты с использованием современных технологий адаптивной вёрстки.</p>
                 </div>
                 
                 <div class="filters">
@@ -54,20 +63,34 @@
                 <div class="projects-full-grid">
                     <div class="project-full-card" data-category="html">
                         <div class="project-image-container">
-                            <img src="../images/project1.jpg" alt="Личный сайт" class="project-full-image">
+                            <picture>
+                                <!-- Разные изображения для разных размеров экрана -->
+                                <source media="(min-width: 1200px)" srcset="../images/project1-large.webp" type="image/webp">
+                                <source media="(min-width: 1200px)" srcset="../images/project1-large.jpg">
+                                <source media="(min-width: 768px)" srcset="../images/project1-medium.webp" type="image/webp">
+                                <source media="(min-width: 768px)" srcset="../images/project1-medium.jpg">
+                                <source srcset="../images/project1.webp" type="image/webp">
+                                <img src="../images/project1.jpg" 
+                                     alt="Личный сайт-портфолио с адаптивным дизайном" 
+                                     class="project-full-image"
+                                     width="600" 
+                                     height="400"
+                                     loading="lazy">
+                            </picture>
                             <div class="project-overlay">
                                 <span class="view-details">Посмотреть детали</span>
                             </div>
                         </div>
                         <div class="project-full-content">
                             <h3 class="project-full-title">Личный сайт-портфолио</h3>
-                            <p class="project-full-tech">HTML5, CSS3, JavaScript, Adaptive Design</p>
-                            <p class="project-full-desc">Полностью адаптивный сайт-портфолио с современным дизайном, анимациями и тёмной темой. Реализована семантическая вёрстка и доступность.</p>
+                            <p class="project-full-tech">HTML5, CSS3, JavaScript, Adaptive Design, Grid, Flexbox</p>
+                            <p class="project-full-desc">Полностью адаптивный сайт-портфолио с современным дизайном, анимациями и тёмной темой. Реализована семантическая вёрстка, доступность и оптимизация производительности.</p>
                             <div class="project-features">
                                 <span class="feature-tag">Адаптивность</span>
                                 <span class="feature-tag">CSS Grid</span>
                                 <span class="feature-tag">Flexbox</span>
                                 <span class="feature-tag">Анимации</span>
+                                <span class="feature-tag">Доступность</span>
                             </div>
                             <div class="project-links">
                                 <a href="#" class="project-link">🌐 Демо</a>
@@ -78,15 +101,27 @@
 
                     <div class="project-full-card" data-category="js">
                         <div class="project-image-container">
-                            <img src="../images/project2.jpg" alt="Todo приложение" class="project-full-image">
+                            <picture>
+                                <source media="(min-width: 1200px)" srcset="../images/project2-large.webp" type="image/webp">
+                                <source media="(min-width: 1200px)" srcset="../images/project2-large.jpg">
+                                <source media="(min-width: 768px)" srcset="../images/project2-medium.webp" type="image/webp">
+                                <source media="(min-width: 768px)" srcset="../images/project2-medium.jpg">
+                                <source srcset="../images/project2.webp" type="image/webp">
+                                <img src="../images/project2.jpg" 
+                                     alt="Todo приложение для управления задачами" 
+                                     class="project-full-image"
+                                     width="600" 
+                                     height="400"
+                                     loading="lazy">
+                            </picture>
                             <div class="project-overlay">
                                 <span class="view-details">Посмотреть детали</span>
                             </div>
                         </div>
                         <div class="project-full-content">
                             <h3 class="project-full-title">Todo приложение</h3>
-                            <p class="project-full-tech">JavaScript, LocalStorage, CSS3</p>
-                            <p class="project-full-desc">Интерактивное приложение для управления задачами с возможностью добавления, редактирования, удаления и фильтрации задач. Данные сохраняются в браузере.</p>
+                            <p class="project-full-tech">JavaScript, LocalStorage, CSS3, DOM API</p>
+                            <p class="project-full-desc">Интерактивное приложение для управления задачами с возможностью добавления, редактирования, удаления и фильтрации задач. Данные сохраняются в браузере с использованием LocalStorage.</p>
                             <div class="project-features">
                                 <span class="feature-tag">LocalStorage</span>
                                 <span class="feature-tag">CRUD операции</span>
@@ -102,15 +137,27 @@
 
                     <div class="project-full-card" data-category="react">
                         <div class="project-image-container">
-                            <img src="../images/project3.jpg" alt="Интернет-магазин" class="project-full-image">
+                            <picture>
+                                <source media="(min-width: 1200px)" srcset="../images/project3-large.webp" type="image/webp">
+                                <source media="(min-width: 1200px)" srcset="../images/project3-large.jpg">
+                                <source media="(min-width: 768px)" srcset="../images/project3-medium.webp" type="image/webp">
+                                <source media="(min-width: 768px)" srcset="../images/project3-medium.jpg">
+                                <source srcset="../images/project3.webp" type="image/webp">
+                                <img src="../images/project3.jpg" 
+                                     alt="Интернет-магазин на React" 
+                                     class="project-full-image"
+                                     width="600" 
+                                     height="400"
+                                     loading="lazy">
+                            </picture>
                             <div class="project-overlay">
                                 <span class="view-details">Посмотреть детали</span>
                             </div>
                         </div>
                         <div class="project-full-content">
                             <h3 class="project-full-title">Интернет-магазин</h3>
-                            <p class="project-full-tech">React, REST API, CSS Modules</p>
-                            <p class="project-full-desc">Прототип интернет-магазина с корзиной товаров, фильтрацией по категориям и поиском. Реализована работа с внешним API для получения данных о товарах.</p>
+                            <p class="project-full-tech">React, REST API, CSS Modules, React Router</p>
+                            <p class="project-full-desc">Прототип интернет-магазина с корзиной товаров, фильтрацией по категориям и поиском. Реализована работа с внешним API для получения данных о товарах и управление состоянием приложения.</p>
                             <div class="project-features">
                                 <span class="feature-tag">React Hooks</span>
                                 <span class="feature-tag">API Integration</span>
@@ -126,7 +173,19 @@
 
                     <div class="project-full-card" data-category="bootstrap">
                         <div class="project-image-container">
-                            <img src="../images/project4.jpg" alt="Портфолио на Bootstrap" class="project-full-image">
+                            <picture>
+                                <source media="(min-width: 1200px)" srcset="../images/project4-large.webp" type="image/webp">
+                                <source media="(min-width: 1200px)" srcset="../images/project4-large.jpg">
+                                <source media="(min-width: 768px)" srcset="../images/project4-medium.webp" type="image/webp">
+                                <source media="(min-width: 768px)" srcset="../images/project4-medium.jpg">
+                                <source srcset="../images/project4.webp" type="image/webp">
+                                <img src="../images/project4.jpg" 
+                                     alt="Портфолио на Bootstrap 5" 
+                                     class="project-full-image"
+                                     width="600" 
+                                     height="400"
+                                     loading="lazy">
+                            </picture>
                             <div class="project-overlay">
                                 <span class="view-details">Посмотреть детали</span>
                             </div>
@@ -134,7 +193,7 @@
                         <div class="project-full-content">
                             <h3 class="project-full-title">Портфолио на Bootstrap</h3>
                             <p class="project-full-tech">Bootstrap 5, JavaScript, Responsive Design</p>
-                            <p class="project-full-desc">Современное портфолио, созданное с использованием фреймворка Bootstrap 5. Включает компоненты сетки, навигацию, карточки и адаптивный дизайн.</p>
+                            <p class="project-full-desc">Современное портфолио, созданное с использованием фреймворка Bootstrap 5. Включает компоненты сетки, навигацию, карточки, адаптивный дизайн и кастомизацию стилей.</p>
                             <div class="project-features">
                                 <span class="feature-tag">Bootstrap 5</span>
                                 <span class="feature-tag">Компоненты</span>
@@ -152,7 +211,7 @@
         </main>
 
         <footer class="footer">
-            <p>&copy; 2025 Все права защищены.</p>
+            <p>&copy; 2025 Лукьянов Антон Павлович. Все права защищены.</p>
             <p><a href="contacts.html" class="footer-link">По вопросам: +7 (977) 166-22-00</a></p>
         </footer>
     </div>

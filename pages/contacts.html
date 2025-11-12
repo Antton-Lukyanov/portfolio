@@ -18,7 +18,16 @@
                 </button>
             </div>
             <div class="header-content">
-                <img src="../images/logo.png" alt="Логотип" class="header-logo">
+                <picture>
+                    <source srcset="../images/logo.webp" type="image/webp">
+                    <source srcset="../images/logo@2x.png 2x, ../images/logo.png 1x">
+                    <img src="../images/logo.png" 
+                         alt="Логотип" 
+                         class="header-logo" 
+                         width="60" 
+                         height="60"
+                         loading="eager">
+                </picture>
                 <div>
                     <h1 class="logo">Мой сайт</h1>
                     <p class="student-name">Лукьянов Антон Павлович</p>
@@ -35,7 +44,7 @@
             </ul>
         </nav>
 
-        <main class="main-content">
+        <main class="main-content" id="main">
             <section class="contacts-section">
                 <h1 class="page-title">Свяжитесь со мной</h1>
                 
@@ -51,6 +60,17 @@
                             <div class="form-group">
                                 <label for="email">Email *</label>
                                 <input type="email" id="email" name="email" required placeholder="your.email@example.com">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="subject">Тема сообщения</label>
+                                <select id="subject" name="subject">
+                                    <option value="">Выберите тему</option>
+                                    <option value="collaboration">Сотрудничество</option>
+                                    <option value="project">Проект</option>
+                                    <option value="question">Вопрос</option>
+                                    <option value="feedback">Обратная связь</option>
+                                </select>
                             </div>
                             
                             <div class="form-group">
@@ -91,6 +111,15 @@
                                     <small>Доступен для звонков</small>
                                 </div>
                             </div>
+
+                            <div class="contact-item">
+                                <span class="contact-icon">📍</span>
+                                <div class="contact-content">
+                                    <h3>Местоположение</h3>
+                                    <p>Москва, Россия</p>
+                                    <small>Доступен для удалённой работы</small>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -98,7 +127,7 @@
         </main>
 
         <footer class="footer">
-            <p>&copy; 2025 Все права защищены.</p>
+            <p>&copy; 2025 Лукьянов Антон Павлович. Все права защищены.</p>
             <p><a href="contacts.html" class="footer-link">По вопросам: +7 (977) 166-22-00</a></p>
         </footer>
     </div>

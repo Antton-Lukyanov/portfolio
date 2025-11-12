@@ -994,3 +994,157 @@ img[loading="lazy"].loaded {
     grid-template-columns: 1fr;
   }
 }
+
+/* Стили для скрытого текста (только для скринридеров) */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+/* Улучшенные стили фокуса для форм */
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+    outline: 3px solid var(--primary-color);
+    outline-offset: 2px;
+    border-color: var(--primary-color);
+}
+
+/* Стили для fieldset */
+fieldset {
+    border: 2px solid var(--border-color);
+    border-radius: var(--border-radius-lg);
+    padding: var(--space-lg);
+    margin-bottom: var(--space-lg);
+    background: var(--bg-light);
+}
+
+legend {
+    padding: 0 var(--space-sm);
+    font-weight: 600;
+    color: var(--text-color);
+    font-size: 1rem;
+}
+
+/* Индикатор обязательных полей */
+.form-group label[for]::after {
+    content: " *";
+    color: #e53e3e;
+}
+
+/* Стили для сообщений об ошибках */
+.error-message {
+    color: #e53e3e;
+    font-size: 0.875rem;
+    margin-top: var(--space-xs);
+    padding: var(--space-sm);
+    background: #fed7d7;
+    border-radius: var(--border-radius);
+    border-left: 4px solid #e53e3e;
+    font-weight: 500;
+}
+
+/* Стили для сообщений об успехе */
+.success-message {
+    color: #2d7730;
+    font-size: 1rem;
+    margin-bottom: var(--space-lg);
+    padding: var(--space-md);
+    background: #c6f6d5;
+    border-radius: var(--border-radius);
+    border-left: 4px solid #38a169;
+    font-weight: 600;
+}
+
+/* Индикатор невалидных полей */
+.form-group input[aria-invalid="true"],
+.form-group textarea[aria-invalid="true"],
+.form-group select[aria-invalid="true"] {
+    border-color: #e53e3e;
+    background-color: #fff5f5;
+}
+
+/* Фокус для контактных элементов */
+.contact-item:focus {
+    outline: 3px solid var(--primary-color);
+    outline-offset: 4px;
+    border-radius: var(--border-radius);
+}
+
+/* Улучшение контрастности для высокой доступности */
+@media (prefers-contrast: more) {
+    .btn {
+        border: 2px solid currentColor;
+    }
+    
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+        border-width: 2px;
+    }
+    
+    .error-message {
+        border: 2px solid #e53e3e;
+    }
+    
+    .success-message {
+        border: 2px solid #2d7730;
+    }
+    
+    .contact-item {
+        border: 1px solid var(--border-color);
+        border-radius: var(--border-radius);
+        padding: var(--space-sm);
+    }
+}
+
+/* Уважение к prefers-reduced-motion для анимаций ошибок */
+@media (prefers-reduced-motion: reduce) {
+    .error-message,
+    .success-message {
+        transition: none;
+    }
+}
+
+/* Дополнительные стили для улучшения доступности навигации */
+.nav-link:focus {
+    outline: 3px solid rgba(255, 255, 255, 0.8);
+    outline-offset: 2px;
+    border-radius: var(--border-radius) var(--border-radius) 0 0;
+}
+
+.skip-link:focus {
+    outline: 3px solid var(--primary-color);
+    outline-offset: 2px;
+}
+
+/* Улучшение видимости активного состояния */
+.btn:focus {
+    outline: 3px solid var(--primary-color);
+    outline-offset: 2px;
+    transform: translateY(-1px);
+}
+
+/* Стили для улучшения читаемости в темной теме */
+[data-theme="dark"] .error-message {
+    background: #442727;
+    border-left-color: #fc8181;
+}
+
+[data-theme="dark"] .success-message {
+    background: #1e4535;
+    border-left-color: #48bb78;
+}
+
+[data-theme="dark"] .form-group input[aria-invalid="true"],
+[data-theme="dark"] .form-group textarea[aria-invalid="true"],
+[data-theme="dark"] .form-group select[aria-invalid="true"] {
+    background-color: #2d1b1b;
+}

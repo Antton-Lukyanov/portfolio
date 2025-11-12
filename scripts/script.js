@@ -15,11 +15,14 @@ document.addEventListener('DOMContentLoaded', function() {
     // Модальные окна для проектов
     initializeProjectModals();
     
-    // Обработка формы контактов
+    // Обработка формы контактов (обновленная)
     initializeContactForm();
     
     // Добавление записи в дневник
     initializeDiaryEntry();
+    
+    // Инициализация доступности навигации
+    initializeNavigationAccessibility();
 });
 
 // Функция для инициализации круговых прогресс-баров
@@ -67,8 +70,12 @@ function initializeProjectFilters() {
                 const filter = this.getAttribute('data-filter');
                 
                 // Обновляем активную кнопку
-                filterButtons.forEach(btn => btn.classList.remove('active'));
+                filterButtons.forEach(btn => {
+                    btn.classList.remove('active');
+                    btn.setAttribute('aria-pressed', 'false');
+                });
                 this.classList.add('active');
+                this.setAttribute('aria-pressed', 'true');
                 
                 // Фильтруем проекты
                 projectCards.forEach(card => {
@@ -104,7 +111,10 @@ function initializeProjectModals() {
     
     // Открытие модального окна
     projectCardsClickable.forEach(card => {
-        card.addEventListener('click', function() {
+        card.addEventListener('click', function(e) {
+            // Проверяем, не был ли клик на ссылке внутри карточки
+            if (e.target.tagName === 'A') return;
+            
             const title = this.querySelector('.project-full-title, .project-title')?.textContent || 'Проект';
             const tech = this.querySelector('.project-full-tech')?.textContent || '';
             const desc = this.querySelector('.project-full-desc')?.textContent || '';
@@ -118,7 +128,7 @@ function initializeProjectModals() {
             modalTitle.textContent = title;
             modalBody.innerHTML = `
                 <div class="modal-development">
-                    <div class="modal-development-icon">🚧</div>
+                    <div class="modal-development-icon" aria-hidden="true">🚧</div>
                     <h3>Страница в разработке</h3>
                     <p>Детальная информация о проекте скоро появится здесь!</p>
                     <div style="margin-top: 20px; padding: 15px; background: var(--bg-light); border-radius: 8px;">
@@ -136,45 +146,324 @@ function initializeProjectModals() {
                     ${featuresHTML ? `<div class="project-features" style="margin-top: 15px;">${featuresHTML}</div>` : ''}
                 </div>
             `;
+            
             modal.style.display = 'block';
+            modal.setAttribute('aria-hidden', 'false');
+            
+            // Фокус на модальное окно
+            modal.focus();
+            
+            // Захват фокуса внутри модалки
+            trapFocus(modal);
+        });
+        
+        // Добавляем обработчик для клавиатуры
+        card.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                this.click();
+            }
         });
     });
     
     // Закрытие модального окна
     if (modalClose) {
         modalClose.addEventListener('click', function() {
-            modal.style.display = 'none';
+            closeModal();
         });
+        
+        modalClose.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                closeModal();
+            }
+        });
+    }
+    
+    function closeModal() {
+        modal.style.display = 'none';
+        modal.setAttribute('aria-hidden', 'true');
+        
+        // Возвращаем фокус на элемент, который открыл модалку
+        const activeElement = document.activeElement;
+        if (activeElement && activeElement.classList.contains('project-full-card')) {
+            activeElement.focus();
+        }
+    }
+    
+    function trapFocus(modal) {
+        const focusableElements = modal.querySelectorAll(
+            'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+        );
+        const firstElement = focusableElements[0];
+        const lastElement = focusableElements[focusableElements.length - 1];
+        
+        modal.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeModal();
+            }
+            
+            if (e.key === 'Tab') {
+                if (e.shiftKey) {
+                    if (document.activeElement === firstElement) {
+                        e.preventDefault();
+                        lastElement.focus();
+                    }
+                } else {
+                    if (document.activeElement === lastElement) {
+                        e.preventDefault();
+                        firstElement.focus();
+                    }
+                }
+            }
+        });
+        
+        // Фокус на первый элемент
+        if (firstElement) {
+            firstElement.focus();
+        }
     }
     
     window.addEventListener('click', function(event) {
         if (event.target === modal) {
-            modal.style.display = 'none';
+            closeModal();
         }
     });
 }
 
-// Функция для инициализации формы контактов
+// Функция для инициализации формы контактов (полностью переработанная)
 function initializeContactForm() {
     const contactForm = document.getElementById('contactForm');
     if (contactForm) {
+        // Добавляем ARIA-атрибуты к полям формы
+        const nameField = document.getElementById('name');
+        const emailField = document.getElementById('email');
+        const messageField = document.getElementById('message');
+        
+        if (nameField) {
+            nameField.setAttribute('aria-describedby', 'name-required');
+        }
+        if (emailField) {
+            emailField.setAttribute('aria-describedby', 'email-required email-hint');
+        }
+        if (messageField) {
+            messageField.setAttribute('aria-describedby', 'message-required message-hint');
+        }
+        
         contactForm.addEventListener('submit', function(e) {
             e.preventDefault();
             
-            // Простая валидация
-            const name = document.getElementById('name').value;
-            const email = document.getElementById('email').value;
-            const message = document.getElementById('message').value;
+            // Сброс предыдущих ошибок
+            resetErrors();
             
-            if (name && email && message) {
+            // Валидация полей
+            const name = document.getElementById('name');
+            const email = document.getElementById('email');
+            const message = document.getElementById('message');
+            let isValid = true;
+            
+            // Валидация имени
+            if (!name.value.trim()) {
+                showError(name, 'Пожалуйста, введите ваше имя');
+                isValid = false;
+            } else if (name.value.trim().length < 2) {
+                showError(name, 'Имя должно содержать минимум 2 символа');
+                isValid = false;
+            }
+            
+            // Валидация email
+            if (!email.value.trim()) {
+                showError(email, 'Пожалуйста, введите ваш email');
+                isValid = false;
+            } else if (!isValidEmail(email.value)) {
+                showError(email, 'Пожалуйста, введите корректный email адрес');
+                isValid = false;
+            }
+            
+            // Валидация сообщения
+            if (!message.value.trim()) {
+                showError(message, 'Пожалуйста, введите сообщение');
+                isValid = false;
+            } else if (message.value.trim().length < 10) {
+                showError(message, 'Сообщение должно содержать минимум 10 символов');
+                isValid = false;
+            }
+            
+            if (isValid) {
                 // В реальном приложении здесь был бы AJAX запрос
-                alert('Спасибо! Ваше сообщение отправлено. Я свяжусь с вами в ближайшее время.');
+                showSuccess('Спасибо! Ваше сообщение отправлено. Я свяжусь с вами в ближайшее время.');
                 contactForm.reset();
+                
+                // Возвращаем фокус на первое поле после успешной отправки
+                setTimeout(() => {
+                    name.focus();
+                }, 100);
             } else {
-                alert('Пожалуйста, заполните все обязательные поля.');
+                // Фокус на первое поле с ошибкой
+                const firstError = contactForm.querySelector('[aria-invalid="true"]');
+                if (firstError) {
+                    firstError.focus();
+                }
             }
         });
+        
+        // Валидация в реальном времени при потере фокуса
+        const inputs = contactForm.querySelectorAll('input, textarea, select');
+        inputs.forEach(input => {
+            input.addEventListener('blur', function() {
+                validateField(this);
+            });
+            
+            // Сброс ошибки при вводе
+            input.addEventListener('input', function() {
+                if (this.getAttribute('aria-invalid') === 'true') {
+                    this.removeAttribute('aria-invalid');
+                    const errorElement = document.getElementById(`${this.id}-error`);
+                    if (errorElement) {
+                        errorElement.remove();
+                    }
+                }
+            });
+            
+            // Обработка клавиши Enter в полях формы
+            input.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter' && e.target.tagName !== 'TEXTAREA') {
+                    e.preventDefault();
+                    // Находим следующее поле
+                    const formElements = Array.from(contactForm.elements);
+                    const currentIndex = formElements.indexOf(e.target);
+                    const nextElement = formElements[currentIndex + 1];
+                    
+                    if (nextElement) {
+                        nextElement.focus();
+                    }
+                }
+            });
+        });
     }
+}
+
+// Валидация отдельного поля
+function validateField(field) {
+    let isValid = true;
+    let message = '';
+    
+    switch(field.type) {
+        case 'email':
+            if (field.value && !isValidEmail(field.value)) {
+                isValid = false;
+                message = 'Введите корректный email адрес';
+            }
+            break;
+        case 'text':
+            if (field.required && !field.value.trim()) {
+                isValid = false;
+                message = 'Это поле обязательно для заполнения';
+            } else if (field.id === 'name' && field.value.trim().length < 2 && field.value.trim().length > 0) {
+                isValid = false;
+                message = 'Имя должно содержать минимум 2 символа';
+            }
+            break;
+        case 'textarea':
+            if (field.required && !field.value.trim()) {
+                isValid = false;
+                message = 'Это поле обязательно для заполнения';
+            } else if (field.value.trim().length < 10 && field.value.trim().length > 0) {
+                isValid = false;
+                message = 'Сообщение должно содержать минимум 10 символов';
+            }
+            break;
+    }
+    
+    if (!isValid) {
+        showError(field, message);
+    } else {
+        field.removeAttribute('aria-invalid');
+        const errorElement = document.getElementById(`${field.id}-error`);
+        if (errorElement) {
+            errorElement.remove();
+        }
+    }
+    
+    return isValid;
+}
+
+// Показать ошибку поля
+function showError(field, message) {
+    field.setAttribute('aria-invalid', 'true');
+    
+    // Удаляем старую ошибку если есть
+    const existingError = document.getElementById(`${field.id}-error`);
+    if (existingError) {
+        existingError.remove();
+    }
+    
+    // Создаем элемент ошибки
+    const errorElement = document.createElement('div');
+    errorElement.id = `${field.id}-error`;
+    errorElement.className = 'error-message';
+    errorElement.textContent = message;
+    errorElement.setAttribute('role', 'alert');
+    errorElement.setAttribute('aria-live', 'polite');
+    
+    field.parentNode.appendChild(errorElement);
+    
+    // Обновляем aria-describedby
+    const currentDescribedBy = field.getAttribute('aria-describedby') || '';
+    const describedByIds = currentDescribedBy.split(' ').filter(id => id && !id.includes('-error'));
+    describedByIds.push(`${field.id}-error`);
+    field.setAttribute('aria-describedby', describedByIds.join(' '));
+}
+
+// Сброс всех ошибок
+function resetErrors() {
+    const errors = document.querySelectorAll('.error-message');
+    errors.forEach(error => error.remove());
+    
+    const invalidFields = document.querySelectorAll('[aria-invalid="true"]');
+    invalidFields.forEach(field => {
+        field.removeAttribute('aria-invalid');
+        const describedBy = field.getAttribute('aria-describedby');
+        if (describedBy) {
+            const describedByIds = describedBy.split(' ').filter(id => id && !id.includes('-error'));
+            field.setAttribute('aria-describedby', describedByIds.join(' '));
+        }
+    });
+}
+
+// Показать сообщение об успехе
+function showSuccess(message) {
+    // Удаляем старое сообщение если есть
+    const existingSuccess = document.querySelector('.success-message');
+    if (existingSuccess) {
+        existingSuccess.remove();
+    }
+    
+    // Создаем элемент успеха
+    const successElement = document.createElement('div');
+    successElement.className = 'success-message';
+    successElement.textContent = message;
+    successElement.setAttribute('role', 'status');
+    successElement.setAttribute('aria-live', 'polite');
+    
+    const form = document.getElementById('contactForm');
+    form.parentNode.insertBefore(successElement, form);
+    
+    // Фокус на сообщение об успехе для скринридеров
+    successElement.focus();
+    
+    // Автоматически скрываем через 5 секунд
+    setTimeout(() => {
+        if (successElement.parentNode) {
+            successElement.remove();
+        }
+    }, 5000);
+}
+
+// Валидация email
+function isValidEmail(email) {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
 }
 
 // Функция для добавления записи в дневник
@@ -188,6 +477,14 @@ function initializeDiaryEntry() {
                 if (description) {
                     alert('Запись добавлена! В реальном приложении здесь была бы база данных.');
                 }
+            }
+        });
+        
+        // Обработка клавиатуры для кнопки
+        addEntryBtn.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                this.click();
             }
         });
     }
@@ -228,6 +525,45 @@ function initializeTheme() {
                 localStorage.setItem('theme', 'light');
                 if (themeIcon) themeIcon.textContent = '🌙';
                 if (themeText) themeText.textContent = 'Тёмная';
+            }
+        });
+        
+        // Обработка клавиатуры для переключателя темы
+        themeToggle.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                this.click();
+            }
+        });
+    }
+}
+
+// Инициализация доступности навигации
+function initializeNavigationAccessibility() {
+    const navLinks = document.querySelectorAll('.nav-link');
+    
+    navLinks.forEach(link => {
+        link.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                this.click();
+            }
+        });
+    });
+    
+    // Обработка skip-link
+    const skipLink = document.querySelector('.skip-link');
+    if (skipLink) {
+        skipLink.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') {
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.setAttribute('tabindex', '-1');
+                    target.focus();
+                    setTimeout(() => {
+                        target.removeAttribute('tabindex');
+                    }, 1000);
+                }
             }
         });
     }

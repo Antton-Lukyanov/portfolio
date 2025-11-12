@@ -12,7 +12,7 @@
     <div class="page-container">
         <header class="header">
             <div class="theme-switcher">
-                <button class="theme-toggle" id="themeToggle">
+                <button class="theme-toggle" id="themeToggle" aria-label="Переключить тему">
                     <span class="theme-icon" id="themeIcon">🌙</span>
                     <span class="theme-text" id="themeText">Тёмная</span>
                 </button>
@@ -22,7 +22,7 @@
                     <source srcset="../images/logo.webp" type="image/webp">
                     <source srcset="../images/logo@2x.png 2x, ../images/logo.png 1x">
                     <img src="../images/logo.png" 
-                         alt="Логотип" 
+                         alt="Логотип сайта - портфолио Лукьянова Антона" 
                          class="header-logo" 
                          width="60" 
                          height="60"
@@ -35,12 +35,12 @@
             </div>
         </header>
 
-        <nav class="nav">
+        <nav class="nav" aria-label="Основная навигация">
             <ul class="nav-list">
                 <li class="nav-item"><a class="nav-link" href="../index.html">Главная</a></li>
                 <li class="nav-item"><a class="nav-link" href="projects.html">Проекты</a></li>
                 <li class="nav-item"><a class="nav-link" href="diary.html">Дневник</a></li>
-                <li class="nav-item"><a class="nav-link active" href="contacts.html">Контакты</a></li>
+                <li class="nav-item"><a class="nav-link active" href="contacts.html" aria-current="page">Контакты</a></li>
             </ul>
         </nav>
 
@@ -50,43 +50,62 @@
                 
                 <div class="contacts-layout">
                     <div class="contact-form-container">
-                        <h2 class="section-title">Отправить сообщение</h2>
-                        <form class="contact-form" id="contactForm">
-                            <div class="form-group">
-                                <label for="name">Имя *</label>
-                                <input type="text" id="name" name="name" required placeholder="Введите ваше имя">
-                            </div>
-                            
-                            <div class="form-group">
-                                <label for="email">Email *</label>
-                                <input type="email" id="email" name="email" required placeholder="your.email@example.com">
-                            </div>
-                            
-                            <div class="form-group">
-                                <label for="subject">Тема сообщения</label>
-                                <select id="subject" name="subject">
-                                    <option value="">Выберите тему</option>
-                                    <option value="collaboration">Сотрудничество</option>
-                                    <option value="project">Проект</option>
-                                    <option value="question">Вопрос</option>
-                                    <option value="feedback">Обратная связь</option>
-                                </select>
-                            </div>
-                            
-                            <div class="form-group">
-                                <label for="message">Сообщение *</label>
-                                <textarea id="message" name="message" rows="6" required placeholder="Опишите ваше предложение или вопрос..."></textarea>
-                            </div>
-                            
-                            <button type="submit" class="btn btn-primary">Отправить сообщение</button>
+                        <h2 class="section-title" id="form-title">Отправить сообщение</h2>
+                        <form class="contact-form" id="contactForm" aria-labelledby="form-title">
+                            <fieldset>
+                                <legend class="sr-only">Форма обратной связи</legend>
+                                
+                                <div class="form-group">
+                                    <label for="name">Имя *</label>
+                                    <input type="text" id="name" name="name" required 
+                                           aria-required="true"
+                                           placeholder="Введите ваше имя"
+                                           aria-describedby="name-required">
+                                    <span id="name-required" class="sr-only">Обязательное поле</span>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="email">Email *</label>
+                                    <input type="email" id="email" name="email" required
+                                           aria-required="true"
+                                           placeholder="your.email@example.com"
+                                           aria-describedby="email-required email-hint">
+                                    <span id="email-required" class="sr-only">Обязательное поле</span>
+                                    <span id="email-hint" class="sr-only">Введите действительный email адрес</span>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="subject">Тема сообщения</label>
+                                    <select id="subject" name="subject" aria-describedby="subject-hint">
+                                        <option value="">Выберите тему</option>
+                                        <option value="collaboration">Сотрудничество</option>
+                                        <option value="project">Проект</option>
+                                        <option value="question">Вопрос</option>
+                                        <option value="feedback">Обратная связь</option>
+                                    </select>
+                                    <span id="subject-hint" class="sr-only">Выберите тему вашего сообщения</span>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="message">Сообщение *</label>
+                                    <textarea id="message" name="message" rows="6" required
+                                              aria-required="true"
+                                              placeholder="Опишите ваше предложение или вопрос..."
+                                              aria-describedby="message-required message-hint"></textarea>
+                                    <span id="message-required" class="sr-only">Обязательное поле</span>
+                                    <span id="message-hint" class="sr-only">Опишите подробно ваш вопрос или предложение</span>
+                                </div>
+                                
+                                <button type="submit" class="btn btn-primary">Отправить сообщение</button>
+                            </fieldset>
                         </form>
                     </div>
 
                     <div class="contact-info">
                         <h2 class="section-title">Мои контакты</h2>
                         <div class="contact-details">
-                            <div class="contact-item">
-                                <span class="contact-icon">📧</span>
+                            <div class="contact-item" tabindex="0">
+                                <span class="contact-icon" aria-hidden="true">📧</span>
                                 <div class="contact-content">
                                     <h3>Email</h3>
                                     <p>bibaloveff@mail.ru</p>
@@ -94,8 +113,8 @@
                                 </div>
                             </div>
                             
-                            <div class="contact-item">
-                                <span class="contact-icon">💻</span>
+                            <div class="contact-item" tabindex="0">
+                                <span class="contact-icon" aria-hidden="true">💻</span>
                                 <div class="contact-content">
                                     <h3>GitHub</h3>
                                     <p>github.com/Antton-Lukyanov</p>
@@ -103,8 +122,8 @@
                                 </div>
                             </div>
 
-                            <div class="contact-item">
-                                <span class="contact-icon">📱</span>
+                            <div class="contact-item" tabindex="0">
+                                <span class="contact-icon" aria-hidden="true">📱</span>
                                 <div class="contact-content">
                                     <h3>Телефон</h3>
                                     <p>+7 (977) 166-22-00</p>
@@ -112,8 +131,8 @@
                                 </div>
                             </div>
 
-                            <div class="contact-item">
-                                <span class="contact-icon">📍</span>
+                            <div class="contact-item" tabindex="0">
+                                <span class="contact-icon" aria-hidden="true">📍</span>
                                 <div class="contact-content">
                                     <h3>Местоположение</h3>
                                     <p>Москва, Россия</p>
